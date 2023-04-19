@@ -1,4 +1,4 @@
-// write your code here
+// write your code here 
 fetch("http://localhost:3000/ramens")
 .then(response => response.json())
 .then(ramens => {
@@ -7,19 +7,21 @@ fetch("http://localhost:3000/ramens")
     })
     addRamenDetails(ramens[0])
 })
-
+const ramenMenu = document.getElementById("ramen-menu")
+//Core Deliverable 1
 function addRamenImageToMenu(ramen){
-    const ramenMenu = document.getElementById("ramen-menu")
     const ramenImage = document.createElement("img")
     ramenImage.src = ramen.image
-    document.addEventListener("click", () => {
+    ramenMenu.appendChild(ramenImage)
+    
+    //Core Deliverable 2
+    ramenImage.addEventListener("click", () => {
         addRamenDetails(ramen)
     })
-    ramenMenu.appendChild(ramenImage)
 }
 
 function addRamenDetails(ramen) {
-    console.log(ramen)
+    // console.log(ramen)
     const ramenDetailImage = document.querySelector(".detail-image")
     const ramenName = document.querySelector(".name")
     const ramenRestaurant = document.querySelector(".restaurant")
@@ -32,12 +34,23 @@ function addRamenDetails(ramen) {
     ramenComment.textContent = ramen.comment
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector('form').addEventListener("submit", (event) => {
-      event.preventDefault();
-      addRamenImageToMenu(event)
-    })
-  });
+const newRamenForm = document.querySelector('#new-ramen')
+newRamenForm.addEventListener("submit", (event) => {
+      event.preventDefault()
+      const newImageValue = document.querySelector('#new-image').value
+      const newNameValue = document.querySelector('#new-name').value
+      const newRestaurantValue = document.querySelector('#new-restaurant').value
+      const newRatingValue = document.querySelector('#new-rating').value
+      const newCommentValue = document.querySelector('#new-comment').value
+      
+      const newRamen = {
+        name : newNameValue,
+        restaurant : newRestaurantValue,
+        image : newImageValue,
+        rating : Number(newRatingValue),
+        comment : newCommentValue
+      }
+    addRamenImageToMenu(newRamen)
+});
 
   
